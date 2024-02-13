@@ -1,15 +1,15 @@
 name: My First Github Action
 on:
   push:
-    branches: [ master ]
+    branches: [ master, ci/setup ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, ci/setup ]
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '21'
-          distribution: 'oracle'
+          distribution: 'semeru'
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Run Quarkus Tests
