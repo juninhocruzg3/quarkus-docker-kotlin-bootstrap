@@ -11,11 +11,11 @@ console:
 clean-install:
 	@$(call run-inside-container,"./mvnw clean install")
 dev:
-	@$(call run-inside-container,"./mvnw compile quarkus:dev -DSkipScan")
+	@$(call run-inside-container,"./mvnw --no-snapshot-updates compile quarkus:dev")
 test:
-	@$(call run-inside-container, "./mvnw -Dquarkus.analytics.disabled=true quarkus:test")
+	@$(call run-inside-container, "./mvnw --no-snapshot-updates quarkus:test")
 verify:
-	@$(call run-inside-container, "./mvnw -Dquarkus.analytics.disabled=true verify")
+	@$(call run-inside-container, "./mvnw --no-snapshot-updates verify")
 package:
 	@$(call run-inside-container,"./mvnw package")
 package-uber-jar:
