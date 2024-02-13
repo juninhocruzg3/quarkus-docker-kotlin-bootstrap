@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - .:/mnt/api
+      - .m2:/home/quarkus/.m2
     command: ['bash']
     expose:
       - "8090"

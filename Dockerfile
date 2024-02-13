@@ -33,11 +33,13 @@ RUN bash -c "source $SDKMAN_DIR/bin/sdkman-init.sh && sdk install quarkus $QUARK
 
 WORKDIR /mnt/api
 
-# USER root
+RUN mkdir -p /home/quarkus/.redhat && echo '{"disabled":true}' > ~/.redhat/io.quarkus.analytics.localconfig
 
-# RUN chown quarkus:quarkus -R /home/quarkus
+# ENV M2_HOME=/mnt/api/.m2
 
-# USER quarkus
+# RUN mkdir -p ~/.m2
+# RUN ls /home/quarkus/ -a
+# COPY .m2/settings.xml /home/quarkus/.m2/settings.xml
 
 ENTRYPOINT ["/bin/bash", "-c", "source $SDKMAN_DIR/bin/sdkman-init.sh && \"$@\"", "-s"]
 # CMD ["sdk", "help"]
