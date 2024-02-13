@@ -8,8 +8,14 @@ build-docker-image:
 	docker compose build --build-arg USERID=${USERID} api
 console:
 	docker compose run --rm api
+clean-install:
+	@$(call run-inside-container,"./mvnw clean install")
 dev:
-	@$(call run-inside-container,"./mvnw compile quarkus:dev")
+	@$(call run-inside-container,"./mvnw compile quarkus:dev -DSkipScan")
+test:
+	@$(call run-inside-container, "./mvnw -Dquarkus.analytics.disabled=true quarkus:test")
+verify:
+	@$(call run-inside-container, "./mvnw -Dquarkus.analytics.disabled=true verify")
 package:
 	@$(call run-inside-container,"./mvnw package")
 package-uber-jar:
