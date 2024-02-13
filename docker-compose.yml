@@ -6,3 +6,7 @@ services:
     volumes:
       - .:/mnt/api
     command: ['bash']
+    expose:
+      - "8090"
+    ports:
+      - "8090:8090"
